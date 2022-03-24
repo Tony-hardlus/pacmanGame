@@ -18,7 +18,9 @@ state = {'score': 0}
 path = Turtle(visible=False)
 writer = Turtle(visible=False)
 aim = vector(5, 0)
-pacman = vector(-40, -80)
+# Vector determines the point where the pacman starts. 
+# Vector was changed to (-20,-40). The original was (-40,-80)
+pacman = vector(-20, -40)
 # Number of ghosts was changed to 3 ghosts
 ghosts = [
     [vector(-180, 160), vector(5, 0)],
