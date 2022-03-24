@@ -2,11 +2,6 @@
 
 Exercises
 
-1. Change the board.
-2. Change the number of ghosts. Done
-3. Change where pacman starts.
-4. Make the ghosts faster/slower.
-5. Make the ghosts smarter.
 """
 
 from random import choice
@@ -23,9 +18,11 @@ aim = vector(5, 0)
 pacman = vector(-20, -40)
 # Number of ghosts was changed to 3 ghosts
 ghosts = [
+# primer fantasma se mueve hacia la derecha
     [vector(-180, 160), vector(5, 0)],
     [vector(-180, -160), vector(0, 5)],
     [vector(100, 160), vector(0, -5)],
+    [vector(100, -160), vector(-5, 0)],
 ]
 # fmt: off
 tiles = [
@@ -135,13 +132,28 @@ def move():
     for point, course in ghosts:
         if valid(point + course):
             point.move(course)
+
         else:
-            options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
-            ]
+            # Si el pacman está a la derecha:
+            if(pacman.x>point.x):
+                # si pacman está arriba:
+                if(pacman.y>point.y):
+                    # ir a la derecha e ir arriba:
+                    options = [vector(5,0),vector(0,5)]
+                else:
+                    #ir a la derecha e ir abajo:
+                    options = [vector(5,0),vector(0,-5)]
+
+            # si el pacman está a la izquierda:       
+            else:
+                # si el pacman está arriba:
+                if(pacman.y>point.y):
+                    # ir a la izquierda e ir arriba:
+                    options = [vector(-5,0),vector(0,5)]
+                else:
+                    # ir a la izquierda e ir abajo:
+                    options = [vector(-5,0),vector(0,-5)]
+
             plan = choice(options)
             course.x = plan.x
             course.y = plan.y
